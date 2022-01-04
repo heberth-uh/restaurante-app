@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 
-const NewOrder = () => {
+const NewFood = () => {
     return (
         <ScrollView style={ styles.container }>
+            <Text style={ [styles.text_bold, styles.text_center, styles.title ] }>Agregar nueva comida</Text>
             <View style={ styles.inputgroup }>
                 <TextInput
                     style={ styles.inputform }
@@ -19,11 +20,11 @@ const NewOrder = () => {
                     style={ styles.inputform }
                     placeholder='Descripción'/>
             </View>
-            <View style={ styles.inputgroup }>
+            {/* <View style={ styles.inputgroup }>
                 <TextInput 
                     style={ styles.inputform }
                     placeholder='Disponible' />
-            </View>
+            </View> */}
             <View style={ styles.inputgroup }>
                 <TouchableOpacity style={ styles.btnguardar }>
                     <Text style={ [styles.text_white, styles.text_bold, styles.text_center] }>
@@ -35,7 +36,7 @@ const NewOrder = () => {
     )
 }
 
-export default NewOrder;
+export default NewFood;
 
 const styles = StyleSheet.create({
     container: {
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#EE9746',
         borderBottomWidth: 3,
         borderRadius: 6,
+        fontSize: 18,
     },
     btnguardar: {
         paddingVertical: 15,
@@ -69,5 +71,11 @@ const styles = StyleSheet.create({
     },
     text_center: {
         textAlign: 'center',
+    },
+    text_negro: {
+        color: '#000'
+    },
+    title: {
+        fontSize: 22,
     }
 });

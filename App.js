@@ -6,12 +6,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 const Stack = createNativeStackNavigator();
 import MenuList from './screens/MenuList';
 import FoodDetail from './screens/FoodDetail';
-import NewOrder from './screens/NewOrder';
+import NewFood from './screens/NewFood';
 
 function MyStack(){
   return(
     <Stack.Navigator>
-      <Stack.Screen name='NewOrder' component={NewOrder}/>
+      <Stack.Screen name='NewFood' component={NewFood}/>
       <Stack.Screen name='MenuList' component={MenuList}/>
       <Stack.Screen name='FoodDetail' component={FoodDetail}/>
     </Stack.Navigator>
