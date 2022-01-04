@@ -1,24 +1,38 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
 
 const NewFood = () => {
+
+    const [state, setState] = useState({
+        nombre: '',
+        precio: '',
+        desc: ''
+    })
+
+    const handleTextInput = (input, value) => {
+        setState({ ...setState, [input]: value})
+    }
+
     return (
         <ScrollView style={ styles.container }>
             <Text style={ [styles.text_bold, styles.text_center, styles.title ] }>Agregar nueva comida</Text>
             <View style={ styles.inputgroup }>
                 <TextInput
                     style={ styles.inputform }
-                    placeholder='Nombre' />
+                    placeholder='Nombre'
+                    onChange={ (value) => handleTextInput('nombre', value) } />
             </View>
             <View style={ styles.inputgroup }>
                 <TextInput
                     style={ styles.inputform }
-                    placeholder='Precio' />
+                    placeholder='Precio'
+                    onChange={ (value) => handleTextInput('precio', value) } />
             </View>
             <View style={ styles.inputgroup }>
                 <TextInput
                     style={ styles.inputform }
-                    placeholder='Descripción'/>
+                    placeholder='Descripción'
+                    onChange={ (value) => handleTextInput('desc', value) } />
             </View>
             {/* <View style={ styles.inputgroup }>
                 <TextInput 
