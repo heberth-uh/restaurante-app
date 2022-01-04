@@ -4,7 +4,7 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const Stack = createNativeStackNavigator();
-import MeniList from './screens/MenuList';
+import MenuList from './screens/MenuList';
 import FoodDetail from './screens/FoodDetail';
 import NewOrder from './screens/NewOrder';
 
@@ -12,7 +12,7 @@ function MyStack(){
   return(
     <Stack.Navigator>
       <Stack.Screen name='NewOrder' component={NewOrder}/>
-      <Stack.Screen name='MenuList' component={MeniList}/>
+      <Stack.Screen name='MenuList' component={MenuList}/>
       <Stack.Screen name='FoodDetail' component={FoodDetail}/>
     </Stack.Navigator>
   )
