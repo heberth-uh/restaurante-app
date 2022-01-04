@@ -4,21 +4,31 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from 
 const NewOrder = () => {
     return (
         <ScrollView style={ styles.container }>
-            <View>
-                <TextInput placeholder='Nombre' />
+            <View style={ styles.inputgroup }>
+                <TextInput
+                    style={ styles.inputform }
+                    placeholder='Nombre' />
             </View>
-            <View>
-                <TextInput placeholder='Precio' />
+            <View style={ styles.inputgroup }>
+                <TextInput
+                    style={ styles.inputform }
+                    placeholder='Precio' />
             </View>
-            <View>
-                <TextInput placeholder='Descripción' />
+            <View style={ styles.inputgroup }>
+                <TextInput
+                    style={ styles.inputform }
+                    placeholder='Descripción'/>
             </View>
-            <View>
-                <TextInput placeholder='Disponible' />
+            <View style={ styles.inputgroup }>
+                <TextInput 
+                    style={ styles.inputform }
+                    placeholder='Disponible' />
             </View>
-            <View>
-                <TouchableOpacity>
-                    <Text>Guardar</Text>
+            <View style={ styles.inputgroup }>
+                <TouchableOpacity style={ styles.btnguardar }>
+                    <Text style={ [styles.text_white, styles.text_bold, styles.text_center] }>
+                        Guardar
+                    </Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -29,9 +39,35 @@ export default NewOrder;
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
+        padding: 15,
     },
+    inputgroup: {
+        margin: 10,
+    },
+    inputform: {
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        backgroundColor: '#FFFCF9',
+        borderBottomColor: '#EE9746',
+        borderBottomWidth: 3,
+        borderRadius: 6,
+    },
+    btnguardar: {
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#EE9746',
+        borderRadius: 6,
+        width: '30%',
+        alignSelf: 'center'
+    },
+    text_white: {
+        color: '#fff',
+    },
+    text_bold: {
+        fontWeight: 'bold',
+    },
+    text_center: {
+        textAlign: 'center',
+    }
 });
