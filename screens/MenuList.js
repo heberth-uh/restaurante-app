@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from "react-native";
 
-const MeniList = () => {
+const MenuList = () => {
     return (
         <View>
             <Text>Menú de comidas</Text>
@@ -9,4 +9,4 @@ const MeniList = () => {
     )
 }
 
-export default MeniList;
+export default MenuList;
