@@ -7,48 +7,50 @@ import {
     ScrollView,
     StyleSheet,
     Alert,
+    Button,
 } from "react-native";
-
 import db from "../database/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 const NewFood = () => {
 
-    const [state, setState] = useState({
-        nombre: '',
-        precio: '',
-        desc: ''
-    })
+    // const [state, setState] = useState({
+    //     nombre: 'nombre',
+    //     precio: 'precio',
+    //     desc: 'descripción'
+    // });
+    const [nombre, setNombre] = useState('');
+    const [precio, setPrecio] = useState('');
+    const [desc, setDesc] = useState('');
+
 
     //Obtener valores de los inputs
     const handleTextInput = (input, value) => {
-        setState({ ...setState, [input]: value })
+        // setState({ ...setState, [input]: value })
+        if (input === 'nombre') setNombre(value);
+        if (input === 'precio') setPrecio(value);
+        if (input === 'desc') setDesc(value);
     }
 
     // Creación de registro en la base de datos
     const saveNewFood = async () => {
-        if (state.nombre === '') {
-            Alert.alert('Debe ingresar un nombre')
+        if (!nombre || !precio || !desc ) {
+            Alert.alert('Por favor, llene todos los campos.')
         }
         else {
+
+            // Alert.alert(`${nombre}, ${precio}, ${desc}`);
+            console.log(`${nombre}, ${precio}, ${desc}`);
             try {
-                Alert.alert("Dentro del try");
-                const docRef = await addDoc(collection(db, "foods"), {
-                    name: state.nombre,
-                    price: state.precio,
-                    desc: state.desc,
+                const docRef = await addDoc(collection(db, "users"), {
+                    name: nombre,
+                    price: precio,
+                    desc: desc
                 });
                 Alert.alert("¡Comida guardada! \nDocument written with ID: ", docRef.id);
             } catch (e) {
                 console.error("Ocurrió un error al añadir un registro a la base de datos: ", e);
             }
-
-            // await firebase.db.collection('foods').add({
-            //     name: state.nombre,
-            //     price: state.precio,
-            //     desc: state.desc,
-            // })
-            // Alert.alert('¡Comida guardada!');
         }
     }
 
@@ -59,19 +61,22 @@ const NewFood = () => {
                 <TextInput
                     style={styles.inputform}
                     placeholder='Nombre'
-                    onChange={(value) => handleTextInput('nombre', value)} />
+                    value={nombre}
+                    onChangeText={(value) => handleTextInput('nombre', value)} />
             </View>
             <View style={styles.inputgroup}>
                 <TextInput
                     style={styles.inputform}
                     placeholder='Precio'
-                    onChange={(value) => handleTextInput('precio', value)} />
+                    value={precio}
+                    onChangeText={(value) => handleTextInput('precio', value)} />
             </View>
             <View style={styles.inputgroup}>
                 <TextInput
                     style={styles.inputform}
                     placeholder='Descripción'
-                    onChange={(value) => handleTextInput('desc', value)} />
+                    value={desc}
+                    onChangeText={(value) => handleTextInput('desc', value)} />
             </View>
             <View style={styles.inputgroup}>
                 <TouchableOpacity
