@@ -1,5 +1,15 @@
-import React, {useState} from 'react'
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import React, { useState } from 'react'
+import { View,
+         Text,
+         TextInput,
+         TouchableOpacity,
+         ScrollView,
+         StyleSheet,
+         Alert,
+         } from "react-native";
+import firebase from "../database/firebase";
+// import firebase from 'firebase/firestore';
+
 
 const NewFood = () => {
 
@@ -11,6 +21,23 @@ const NewFood = () => {
 
     const handleTextInput = (input, value) => {
         setState({ ...setState, [input]: value})
+    }
+
+    // Creación comida a la base de datos
+    const saveNewFood = async () => {
+        if (state.nombre === '') {
+            Alert.alert('Debe ingresar un nombre')
+        } 
+        else {
+            Alert.alert('Ok!');
+
+            await firebase.db.collection('foods').add({
+                name: state.nombre,
+                price: state.precio,
+                desc: state.desc,
+            })
+            Alert.alert('¡Comida guardada!');
+        }
     }
 
     return (
@@ -34,13 +61,10 @@ const NewFood = () => {
                     placeholder='Descripción'
                     onChange={ (value) => handleTextInput('desc', value) } />
             </View>
-            {/* <View style={ styles.inputgroup }>
-                <TextInput 
-                    style={ styles.inputform }
-                    placeholder='Disponible' />
-            </View> */}
             <View style={ styles.inputgroup }>
-                <TouchableOpacity style={ styles.btnguardar }>
+                <TouchableOpacity
+                    style={ styles.btnguardar}
+                    onPress={ () => saveNewFood() }>
                     <Text style={ [styles.text_white, styles.text_bold, styles.text_center] }>
                         Guardar
                     </Text>
