@@ -7,8 +7,8 @@ import { View,
          StyleSheet,
          Alert,
          } from "react-native";
-import firebase from "../database/firebase";
-// import firebase from 'firebase/firestore';
+import db from "../database/firebase";
+
 const NewFood = () => {
 
     const [state, setState] = useState({
@@ -27,13 +27,17 @@ const NewFood = () => {
             Alert.alert('Debe ingresar un nombre')
         } 
         else {
-            Alert.alert('Ok!');
-
-            await firebase.db.collection('foods').add({
-                name: state.nombre,
-                price: state.precio,
-                desc: state.desc,
-            })
+            
+            try {
+                const docRef = await addDoc(collection(db, "users"), {
+                  first: "Ada",
+                  last: "Lovelace",
+                  born: 1815
+                });
+                console.log("Document written with ID: ", docRef.id);
+              } catch (e) {
+                console.error("Error adding document: ", e);
+              }
             Alert.alert('¡Comida guardada!');
         }
     }
