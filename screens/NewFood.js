@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { View,
-         Text,
-         TextInput,
-         TouchableOpacity,
-         ScrollView,
-         StyleSheet,
-         Alert,
-         } from "react-native";
-import firebase from "../database/firebase";
-// import firebase from 'firebase/firestore';
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    ScrollView,
+    StyleSheet,
+    Alert,
+} from "react-native";
+
+import db from "../database/firebase";
+import { collection, addDoc } from "firebase/firestore";
+
 const NewFood = () => {
 
     const [state, setState] = useState({
@@ -17,53 +20,64 @@ const NewFood = () => {
         desc: ''
     })
 
+    //Obtener valores de los inputs
     const handleTextInput = (input, value) => {
-        setState({ ...setState, [input]: value})
+        setState({ ...setState, [input]: value })
     }
 
-    // Creación comida a la base de datos
+    // Creación de registro en la base de datos
     const saveNewFood = async () => {
         if (state.nombre === '') {
             Alert.alert('Debe ingresar un nombre')
-        } 
+        }
         else {
-            Alert.alert('Ok!');
+            try {
+                Alert.alert("Dentro del try");
+                const docRef = await addDoc(collection(db, "foods"), {
+                    name: state.nombre,
+                    price: state.precio,
+                    desc: state.desc,
+                });
+                Alert.alert("¡Comida guardada! \nDocument written with ID: ", docRef.id);
+            } catch (e) {
+                console.error("Ocurrió un error al añadir un registro a la base de datos: ", e);
+            }
 
-            await firebase.db.collection('foods').add({
-                name: state.nombre,
-                price: state.precio,
-                desc: state.desc,
-            })
-            Alert.alert('¡Comida guardada!');
+            // await firebase.db.collection('foods').add({
+            //     name: state.nombre,
+            //     price: state.precio,
+            //     desc: state.desc,
+            // })
+            // Alert.alert('¡Comida guardada!');
         }
     }
 
     return (
-        <ScrollView style={ styles.container }>
-            <Text style={ [styles.text_bold, styles.text_center, styles.title ] }>Agregar nueva comida</Text>
-            <View style={ styles.inputgroup }>
+        <ScrollView style={styles.container}>
+            <Text style={[styles.text_bold, styles.text_center, styles.title]}>Agregar nueva comida</Text>
+            <View style={styles.inputgroup}>
                 <TextInput
-                    style={ styles.inputform }
+                    style={styles.inputform}
                     placeholder='Nombre'
-                    onChange={ (value) => handleTextInput('nombre', value) } />
+                    onChange={(value) => handleTextInput('nombre', value)} />
             </View>
-            <View style={ styles.inputgroup }>
+            <View style={styles.inputgroup}>
                 <TextInput
-                    style={ styles.inputform }
+                    style={styles.inputform}
                     placeholder='Precio'
-                    onChange={ (value) => handleTextInput('precio', value) } />
+                    onChange={(value) => handleTextInput('precio', value)} />
             </View>
-            <View style={ styles.inputgroup }>
+            <View style={styles.inputgroup}>
                 <TextInput
-                    style={ styles.inputform }
+                    style={styles.inputform}
                     placeholder='Descripción'
-                    onChange={ (value) => handleTextInput('desc', value) } />
+                    onChange={(value) => handleTextInput('desc', value)} />
             </View>
-            <View style={ styles.inputgroup }>
+            <View style={styles.inputgroup}>
                 <TouchableOpacity
-                    style={ styles.btnguardar}
-                    onPress={ () => saveNewFood() }>
-                    <Text style={ [styles.text_white, styles.text_bold, styles.text_center] }>
+                    style={styles.btnguardar}
+                    onPress={() => saveNewFood()}>
+                    <Text style={[styles.text_white, styles.text_bold, styles.text_center]}>
                         Guardar
                     </Text>
                 </TouchableOpacity>
