@@ -9,8 +9,6 @@ import { View,
          } from "react-native";
 import firebase from "../database/firebase";
 // import firebase from 'firebase/firestore';
-
-
 const NewFood = () => {
 
     const [state, setState] = useState({
