@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
-
+import { collection, addDoc } from "firebase/firestore";
 const NewFood = () => {
 
     const [state, setState] = useState({
@@ -12,6 +12,10 @@ const NewFood = () => {
     const handleTextInput = (input, value) => {
         setState({ ...setState, [input]: value})
     }
+
+    /* const saveNewFood = () =>{
+        if (state.)
+    } */
 
     return (
         <ScrollView style={ styles.container }>
